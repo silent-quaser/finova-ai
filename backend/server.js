@@ -49,10 +49,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://finova-met08secf-silent-quasers-projects.vercel.app",
-    ],
+    origin: "*",
     methods: [
       "GET",
       "POST",
@@ -60,7 +57,6 @@ app.use(
       "DELETE",
       "OPTIONS",
     ],
-    credentials: true,
   })
 );
 
