@@ -1,82 +1,65 @@
 "use client";
 
+import Link from "next/link";
+
 import {
-  Bell,
-  Search,
   Menu,
+  LogOut,
 } from "lucide-react";
+
+import { useRouter } from "next/navigation";
 
 export default function Navbar({
   setSidebarOpen,
 }) {
+  const router =
+    useRouter();
+
+  function handleLogout() {
+    localStorage.removeItem(
+      "token"
+    );
+
+    router.push("/login");
+  }
+
   return (
-    <header className="fixed top-0 left-0 right-0 h-20 border-b border-white/10 bg-black/30 backdrop-blur-xl z-50">
-      
-      <div className="h-full px-6 flex items-center justify-between">
-        
-        <div className="flex items-center gap-4">
-          
-          <button
-            onClick={() =>
-              setSidebarOpen(
-                (prev) => !prev
-              )
-            }
-            className="md:hidden w-11 h-11 rounded-2xl glass flex items-center justify-center"
-          >
-            
-            <Menu size={22} />
+    <header className="fixed top-0 left-0 right-0 h-20 z-50 border-b border-white/10 bg-black/40 backdrop-blur-xl px-4 md:px-8 flex items-center justify-between">
 
-          </button>
+      <div className="flex items-center gap-4">
 
-          <div>
-            
-            <h1 className="text-3xl font-bold">
-              
-              <span className="gradient-text">
-                Finova
-              </span>{" "}
-              AI
+        <button
+          onClick={() =>
+            setSidebarOpen(true)
+          }
+          className="md:hidden"
+        >
+          <Menu size={26} />
+        </button>
 
-            </h1>
-
-            <p className="text-zinc-400 text-sm">
-              AI-powered financial platform
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="flex items-center gap-4">
-          
-          <div className="hidden md:flex items-center gap-3 glass px-4 py-2 rounded-2xl">
-            
-            <Search
-              size={18}
-              className="text-zinc-400"
-            />
-
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-transparent outline-none text-sm placeholder:text-zinc-500 w-44"
-            />
-
-          </div>
-
-          <button className="w-12 h-12 rounded-2xl glass flex items-center justify-center hover:bg-cyan-500/10 transition-all">
-            
-            <Bell
-              size={20}
-              className="text-cyan-400"
-            />
-
-          </button>
-
-        </div>
+        <Link
+          href="/dashboard"
+          className="text-2xl font-bold"
+        >
+          Finova AI
+        </Link>
 
       </div>
+
+      <button
+        onClick={
+          handleLogout
+        }
+        className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all"
+      >
+
+        <LogOut size={20} />
+
+        <span className="hidden md:block">
+          Logout
+        </span>
+
+      </button>
 
     </header>
   );
