@@ -53,6 +53,13 @@ app.use(
       "http://localhost:3000",
       "https://finova-met08secf-silent-quasers-projects.vercel.app",
     ],
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS",
+    ],
     credentials: true,
   })
 );
