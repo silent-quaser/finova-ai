@@ -47,7 +47,15 @@ const insightRoutes =
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://finova-met08secf-silent-quasers-projects.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
