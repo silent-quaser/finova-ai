@@ -103,35 +103,34 @@ router.post(
       const savings =
         income - expenses;
 
-        console.log(
-  "Income:",
-  income
-);
+      console.log(
+        "Income:",
+        income
+      );
 
-console.log(
-  "Expenses:",
-  expenses
-);
+      console.log(
+        "Expenses:",
+        expenses
+      );
 
-console.log(
-  "Ratio:",
-  expenses / income
-);
+      console.log(
+        "Ratio:",
+        expenses / income
+      );
 
       if (
         income > 0 &&
-        expenses /
-          income >
-          0.8
+        expenses / income > 0.8
       ) {
-        await sendEmail({
-          to:
-            process.env.EMAIL_USER,
+        try {
+          await sendEmail({
+            to:
+              process.env.EMAIL_USER,
 
-          subject:
-            "Finova AI Financial Alert",
+            subject:
+              "Finova AI Financial Alert",
 
-          text: `
+            text: `
 High Expense Warning
 
 Your financial activity indicates elevated spending.
@@ -141,19 +140,25 @@ Expenses: $${expenses}
 Savings: $${savings}
 
 Finova AI recommends reducing discretionary expenses to improve financial stability.
-          `,
-        });
+            `,
+          });
+        } catch (error) {
+          console.log(
+            "Production email skipped"
+          );
+        }
       }
 
       if (savings < 0) {
-        await sendEmail({
-          to:
-            process.env.EMAIL_USER,
+        try {
+          await sendEmail({
+            to:
+              process.env.EMAIL_USER,
 
-          subject:
-            "Finova AI Savings Alert",
+            subject:
+              "Finova AI Savings Alert",
 
-          text: `
+            text: `
 Negative Savings Detected
 
 Your expenses currently exceed your income.
@@ -163,8 +168,13 @@ Expenses: $${expenses}
 Savings: $${savings}
 
 Immediate budget optimization is recommended.
-          `,
-        });
+            `,
+          });
+        } catch (error) {
+          console.log(
+            "Production email skipped"
+          );
+        }
       }
 
       res.status(201).json(
