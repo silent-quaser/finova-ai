@@ -247,7 +247,11 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             
-            <HealthScore />
+            <HealthScore
+  transactions={
+    filteredTransactions
+  }
+/>
 
             <FinancialStats
               transactions={
