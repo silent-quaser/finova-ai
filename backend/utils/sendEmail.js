@@ -1,4 +1,5 @@
-const nodemailer = require("nodemailer");
+const nodemailer =
+  require("nodemailer");
 
 const transporter =
   nodemailer.createTransport({
@@ -13,6 +14,8 @@ const transporter =
       pass:
         process.env.EMAIL_PASS,
     },
+
+    connectionTimeout: 3000,
   });
 
 const sendEmail = async ({
@@ -34,11 +37,11 @@ const sendEmail = async ({
       "Email sent successfully"
     );
   } catch (error) {
-    console.log(
-      "Email sending failed:",
-      error.message
-    );
+
+    return;
+
   }
 };
 
-module.exports = sendEmail;
+module.exports =
+  sendEmail;
